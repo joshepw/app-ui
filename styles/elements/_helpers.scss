@@ -1,0 +1,100 @@
+:root {
+    @each $name, $color in $colors {
+        @include color-variants($name, $color);
+    }
+
+	--color-text: #{$color-text};
+	--color-link: #{$color-link};
+	--color-border: #EEE;
+	--background-header: #{$color-header};
+	--background-footer: #{$color-footer};
+    --background-body: #{$color-body};
+    --background-modal: #{$color-modal};
+}
+
+[pull-right] {
+	float: right;
+}
+
+[pull-left] {
+	float: left;
+}
+
+[text-left] {
+	text-align: left !important;
+}
+
+[text-right] {
+	text-align: right !important;
+}
+
+[text-center] {
+	text-align: center !important;
+}
+
+[flex]{
+	display: flex;
+	width: 100%;
+	min-height: 100%;
+
+	&[middle]{
+		justify-content: center;
+		align-items: center;
+		flex-direction: column;
+	}
+
+	&[flex-row]{
+		flex-direction: row;
+	}
+}
+
+[padded] {
+	padding: $side-spacing;
+}
+
+[row], .row {
+	overflow: hidden;
+	margin-left: -4%;
+
+	&[no-gutter] {
+		margin-left: 0;
+	}
+
+	@for $i from 1 through $columns {
+		$divider: (100 / $columns) * $i;
+		$n: 100 / $divider;
+		$n-minus: $n - 1;
+		$d: (100 - $columns-gutter * $n) / $n;
+		$d-gutter: 100 / $n;
+
+		[#{'col-' + $i}], 
+		#{'.col-' + $i}, 
+		#{'[col="'+ $i +'"]'} {
+			width: #{$d + '%'};
+			margin-left: #{$columns-gutter + '%'};
+			box-sizing: border-box;
+    		float: left;
+		}
+
+		&[no-gutter]{
+			[#{'col-' + $i}], 
+			#{'.col-' + $i}, 
+			#{'[col="'+ $i +'"]'} {
+				width: #{$d-gutter + '%'};
+				margin: 0;
+				box-sizing: border-box;
+    			float: left;
+			}
+		}
+	}
+}
+
+@for $i from 1 through 8 {
+	#{'.icon-x' + $i} {
+		font-size: #{$i + 'rem'} !important;
+	}
+}
+
+@each $name, $color in $colors {
+    @include colors-classes($name);
+}

@@ -1,0 +1,227 @@
+@mixin hairline($position, $color) {
+	&:before {
+		content: '';
+		position: absolute;
+		background-color: $color;
+		display: block;
+		z-index: 1;
+
+		@if($position==top) {
+			left: 0;
+			top: 0;
+			bottom: auto;
+			right: auto;
+			height: 1px;
+			width: 100%;
+			transform-origin: 50% 0%;
+
+			@media only screen and (-webkit-min-device-pixel-ratio: 2) {
+				transform: scaleY(0.5);
+			}
+		}
+
+		@else if($position==left) {
+			left: 0;
+			top: 0;
+			bottom: auto;
+			right: auto;
+			width: 1px;
+			height: 100%;
+			transform-origin: 0% 50%;
+
+			@media only screen and (-webkit-min-device-pixel-ratio: 2) {
+				transform: scaleX(0.5);
+			}
+		}
+
+		@else if($position==bottom) {
+			left: 0;
+			bottom: 0;
+			right: auto;
+			top: auto;
+			height: 1px;
+			width: 100%;
+			transform-origin: 50% 100%;
+
+			@media only screen and (-webkit-min-device-pixel-ratio: 2) {
+				transform: scaleY(0.5);
+			}
+		}
+
+		@else if($position==right) {
+			right: 0;
+			top: 0;
+			left: auto;
+			bottom: auto;
+			width: 1px;
+			height: 100%;
+			transform-origin: 100% 50%;
+
+			@media only screen and (-webkit-min-device-pixel-ratio: 2) {
+				transform: scaleX(0.5);
+			}
+		}
+	}
+}
+
+@mixin hairline-remove($position) {
+	@if ($position !=left and $position !=top) {
+		&:after {
+			display: none;
+		}
+	}
+
+	@if ($position !=right and $position !=bottom) {
+		&:before {
+			display: none;
+		}
+	}
+}
+
+@mixin hairline-border($color, $radius) {
+	position: relative;
+
+	&:after {
+		content: " ";
+		position: absolute;
+		top: 0;
+		left: 0;
+		height: 100%;
+		width: 100%;
+		border: 1px solid $color;
+		border-radius: $radius;
+		transform-origin: 0 0;
+		z-index: 0;
+		box-sizing: border-box;
+
+		@media only screen and (-webkit-min-device-pixel-ratio: 2) {
+			height: 200%;
+			width: 200%;
+			transform: scale(0.5);
+			border-radius: ($radius * 2);
+		}
+	}
+}
+
+@mixin hairline-border-remove() {
+	&:after {
+		display: none;
+	}
+}
+
+@function tint($color, $percentage) {
+	@return mix(white, $color, $percentage);
+}
+
+@function shade($color, $percentage) {
+	@return mix(black, $color, $percentage);
+}
+
+@mixin color-variants($name, $color) {
+	#{'--color-'+$name+'-rgb'}: red($color), green($color), blue($color);
+	#{'--color-'+$name+'-tinted'}: tint($color, 30%);
+	#{'--color-'+$name+'-tint'}: tint($color, 15%);
+	#{'--color-'+$name}: $color;
+	#{'--color-'+$name+'-shade'}: shade($color, 15%);
+	#{'--color-'+$name+'-shaded'}: shade($color, 30%);
+}
+
+@mixin colors-classes($name) {
+	#{'.color-' + $name} {
+		color: #{'var(--color-' + $name + ')'} !important;
+	}
+
+	#{'.color-' + $name + '-tint'} {
+		color: #{'var(--color-' + $name + '-tint)'} !important;
+	}
+
+	#{'.color-' + $name + '-shade'} {
+		color: #{'var(--color-' + $name + '-shade)'} !important;
+	}
+
+	#{'.background-' + $name} {
+		background-color: #{'var(--color-' + $name + ')'} !important;
+	}
+
+	#{'.background-' + $name + '-tint'} {
+		background-color: #{'var(--color-' + $name + '-tint)'} !important;
+	}
+
+	#{'.background-' + $name + '-shade'} {
+		background-color: #{'var(--color-' + $name + '-shade)'} !important;
+	}
+}
+
+@mixin input-shadow() {
+	box-shadow: 0px 18px 12px -12px rgba(0, 0, 0, 0.025);
+}
+
+@mixin icon() {
+	font-family: icons !important;
+	font-style: normal;
+	font-weight: normal !important;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+@mixin flexbox() {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+}
+
+@mixin preloader() {
+	width: 1rem;
+	height: 1rem;
+	transform-origin: 50%;
+	animation: preloader-spin 1s steps(12, end) infinite;
+
+	&:after {
+		display: block;
+		width: 100%;
+		height: 100%;
+		content: "";
+		background-image: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDIzLjEuMCwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IgoJIHZpZXdCb3g9IjAgMCAxNiAxNiIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgMTYgMTY7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPHN0eWxlIHR5cGU9InRleHQvY3NzIj4KCS5zdDB7ZmlsbDojMkEyRTNCO30KPC9zdHlsZT4KPGcgaWQ9InN1cmZhY2UxIj4KCTxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik04LDEuNUM0LjQsMS41LDEuNSw0LjQsMS41LDh2MC41aDFWOEMyLjUsNSw1LDIuNSw4LDIuNWMxLjYsMCwzLjEsMC43LDQuMSwxLjhMMTEsNS41aDMuNVYybC0xLjcsMS43CgkJQzExLjYsMi4zLDkuOSwxLjUsOCwxLjV6IE0xMy41LDcuNVY4YzAsMy0yLjUsNS41LTUuNSw1LjVjLTEuNiwwLTMuMS0wLjctNC4xLTEuOUw1LDEwLjVIMS41VjE0bDEuNy0xLjdjMS4yLDEuMywyLjksMi4yLDQuOCwyLjIKCQljMy42LDAsNi41LTIuOSw2LjUtNi41VjcuNUgxMy41eiIvPgo8L2c+Cjwvc3ZnPgo=");
+		background-repeat: no-repeat;
+		background-position: 50%;
+		background-size: 100%;
+	}
+}
+
+@mixin pull-icon() {
+	background-image: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDIzLjEuMCwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IgoJIHZpZXdCb3g9IjAgMCAxNiAxNiIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgMTYgMTY7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPHN0eWxlIHR5cGU9InRleHQvY3NzIj4KCS5zdDB7ZmlsbDojMkEyRTNCO30KPC9zdHlsZT4KPGcgaWQ9InN1cmZhY2UxIj4KCTxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik0yLjIsNC41TDEuNSw1LjJMOCwxMS41bDYuNS02LjNsLTAuNy0wLjdMOCwxMC4xTDIuMiw0LjV6Ii8+CjwvZz4KPC9zdmc+Cg==");
+}
+
+@mixin button-variant($color, $color-active, $color-text: #FFF) {
+	background: $color;
+	color: $color-text;
+
+	&:active {
+		background: $color-active;
+	}
+}
+
+@mixin button-bordered-variant($color, $color-active) {
+	color: $color;
+
+	&:after {
+		border-color: $color;
+	}
+
+	&:active {
+		color: white;
+		background-color: $color-active;
+
+		&:after {
+			border-color: $color-active;
+		}
+	}
+}
+
+@mixin input-shadow(){
+	box-shadow: 0px 18px 12px -12px rgba(0,0,0, 0.025);
+}

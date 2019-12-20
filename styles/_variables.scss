@@ -1,0 +1,55 @@
+// COLORS
+$colors: (
+    'primary': #4275f2,
+    'accent': #f22710,
+    'danger': #d9534f,
+    'warning': #f0ad4e,
+	'success': #00ae69,
+	'muted' : #b8bac2,
+	'default': #9b9b9b,
+	'dark': #2E3135,
+      
+    'blue': #3490dc,
+    'indigo': #6574cd,
+    'purple': #9561e2,
+    'pink': #f66d9b,
+    'red': #e3342f,
+    'orange': #f6993f,
+    'yellow': #ffcc43,
+    'green': #38c172,
+    'teal': #4dc0b5,
+    'cyan': #6cb2eb
+);
+
+$color-text: #4A4A4A;
+$color-link: #61749b;
+$color-body: #F5F6F8;
+$color-modal: #515151;
+$color-border: #EEEEEE;
+$color-header: #FFFFFF;
+$color-footer: #FFFFFF;
+
+// FONT
+$font-family: "Gilroy", Helvetica, sans-serif;
+$font-size: 18px;
+$font-weight-bold: 800;
+$font-weight-regular: 500;
+$font-weight-light: 300;
+
+// CONTENT
+$header-height: 3.2rem;
+$footer-height: 3.2rem;
+$side-spacing: 0.777778rem;
+
+$base-width: 375px;
+$breakpoints: 400px, 414px, 480px;
+$columns: 12;
+$columns-gutter: 4.0;
+
+$modal-duration: 300ms;
+$scroll-layer-height: 2.5rem;
+
+$buttons-height: 2.22rem;
+
+$switch-size: 18px;
+$switch-size-padding: 3px;
