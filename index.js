@@ -1,74 +1,73 @@
+import './styles/bootstrap.scss';
+
+import axios from 'axios';
+
 // COMPONENTS
-import App from './components/App';
-import Page from './components/Page';
-import Content from './components/Content';
-import Header from './components/Header';
-import Footer from './components/Footer';
-import Toolbar from './components/Toolbar';
-import Title from './components/Title';
-import List from './components/List';
-import Item from './components/Item';
-import FabButton from './components/FabButton';
-
-import Button from './components/Button';
-import ButtonGroup from './components/ButtonGroup';
-import Modal from './components/Modal';
-import Alert from './components/Alert';
-import Confirm from './components/Confirm';
-import Actions from './components/Actions';
-import Popup from './components/Popup';
-import SidePanel from './components/SidePanel';
-import Overlay from './components/Overlay';
-import Scroll from './components/Scroll';
-
-import TransitionPage from './components/TransitionPage';
+import AppContent from './components/app-content/_plugin';
+import Modal from './components/modal/_plugin';
+import Buttons from './components/buttons/_plugin';
+import Overlay from './components/overlay/_plugin';
+import Lists from './components/lists/_plugin';
+import Toolbar from  './components/toolbar/_plugin';
 
 // DIRECTIVES
 import BackgroundImage from './directives/backgroundImage';
 import Swipe from './directives/swipe';
 import Ripple from './directives/ripple';
+import Mask from './directives/mask';
 
-import './styles/bootstrap.scss';
+// HELPERS
+import SessionDriver from './utils/session';
+import StorageDriver from './utils/storage';
 
-const AppUI = {
+export default {
 	install(Vue, options) {
 		const defaultOptions = {
+			secret: 'Xsa5uK2lRz9Zt5yi',
+			authTokenName: 'user_auth_token',
 			darkModeSupport: true,
 			osMode: 'auto',
-			tabs: []
+			http: {
+				endpoint: '',
+				timeout: 5000,
+				authHeader: 'X-Auth-Token',
+				headers: {
+					'responseType' : 'json',
+					'Content-Type' : 'application/json'
+				}
+			}
 		};
 
-		options = {...defaultOptions, ...options};
+		options = { ...defaultOptions, ...options };
+
+		const sessionInstance = new SessionDriver();
+		const storageInstance = new StorageDriver(options.secret);
+
+		if(storageInstance.get(options.authTokenName)) {
+			options.http.headers[options.http.authHeader] = storageInstance.get(options.authTokenName);
+		}
+
+		const httpInstance = axios.create({
+			baseURL: options.http.endpoint,
+			timeout: options.http.timeout,
+			headers: options.http.headers
+		});
 
 		Vue.prototype.$appui = options;
+		Vue.prototype.session = sessionInstance;
+		Vue.prototype.storage = storageInstance;
+		Vue.prototype.http = httpInstance;
 
-		Vue.component('app', App);
-		Vue.component('page', Page);
-		Vue.component('toolbar', Toolbar);
-		Vue.component('toolbar-title', Title);
-		Vue.component('page-content', Content );
-		Vue.component('page-header', Header);
-		Vue.component('page-footer', Footer);
-		Vue.component('list', List);
-		Vue.component('item', Item);
-		Vue.component('fab', FabButton);
-
-		Vue.component('transition-page', TransitionPage);
-		Vue.component('btn', Button);
-		Vue.component('btn-group', ButtonGroup);
-		Vue.component('modal', Modal);
-		Vue.component('alert', Alert);
-		Vue.component('confirm', Confirm);
-		Vue.component('actions', Actions);
-		Vue.component('popup', Popup);
-		Vue.component('side-panel', SidePanel);
-		Vue.component('overlay', Overlay);
-		Vue.component('scroll', Scroll);
+		Vue.use(AppContent);
+		Vue.use(Modal);
+		Vue.use(Buttons);
+		Vue.use(Overlay);
+		Vue.use(Lists);
+		Vue.use(Toolbar);
 
 		Vue.directive('background', BackgroundImage);
 		Vue.directive('swipe', Swipe);
 		Vue.directive('ripple', Ripple);
+		Vue.directive('mask', Mask);
 	}
 };
-
-export default AppUI;

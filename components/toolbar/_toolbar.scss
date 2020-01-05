@@ -11,6 +11,10 @@
 	padding: 4px;
 	min-height: 56px;
 
+	[borderless] {
+		border: none !important;
+	}
+
 	.toolbar-background {
 		left: 0;
 		top: 0;
@@ -25,7 +29,7 @@
 
 		border-style: solid;
 		border-color: var(--toolbar-border-color, rgba(0, 0, 0, .2));
-		background-color: var(--toolbar-background, #f8f8f8);
+		background-color: var(--toolbar-background, #ffffff);
 
 		.app.dark & {
 			border-color: var(--toolbar-dark-border-color, rgba(255, 255, 255, .2));
@@ -42,37 +46,24 @@
 	}
 
 	.toolbar-inner {
-		.app.ios & {
-			flex: 1;
-			order: 4;
-			min-width: 0;
-		}
-
-		.app.android & {
-			flex: 1;
-			order: 3;
-			min-width: 0;
-			max-width: 100%;
-		}
+		flex: 1;
+		display: flex;
+		align-items: center;
 	}
 }
 
-.title{
+.title {
 	display: flex;
 	flex: 1;
 	align-items: center;
 	transform: translateZ(0);
-
-	.app.ios & {
-		left: 0;
-		top: 0;
-		padding: 0 90px 1px;
-		position: absolute;
-		width: 100%;
-		height: 100%;
-		transform: translateZ(0);
-		pointer-events: none;
-	}
+	left: 0;
+	top: 0;
+	padding: 0 0.8rem 1px;
+	width: 100%;
+	height: 100%;
+	transform: translateZ(0);
+	pointer-events: none;
 
 	.title-inner {
 		display: block;
@@ -80,21 +71,10 @@
 		width: 100%;
 		text-overflow: ellipsis;
 		white-space: nowrap;
-
-		.app.ios & {
-			text-align: center;
-			font-size: 17px;
-			font-weight: 600;
-			color: #000;
-			pointer-events: auto;
-		}
-
-		.app.android & {
-			padding: 0 12px;
-			font-size: 20px;
-			font-weight: 500;
-			color: #424242;
-		}
+		font-size: 1rem;
+		font-weight: 600;
+		color: #000;
+		pointer-events: auto;
 
 		.app.dark & {
 			color: #FFF;

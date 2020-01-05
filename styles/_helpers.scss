@@ -4,10 +4,10 @@
     }
 
 	--color-text: #{$color-text};
+	--color-mute: #{$color-mute};
 	--color-link: #{$color-link};
 	--color-border: #EEE;
-	--background-header: #{$color-header};
-	--background-footer: #{$color-footer};
+	--toolbar-background: #{$color-toolbar};
     --background-body: #{$color-body};
     --background-modal: #{$color-modal};
 }

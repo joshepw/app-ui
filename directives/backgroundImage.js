@@ -7,5 +7,5 @@ export default {
 	},
 	unbind(el) {
 		el.style.backgroundImage = '';
-	},
+	}
 };

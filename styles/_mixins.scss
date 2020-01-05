@@ -1,64 +1,76 @@
 @mixin hairline($position, $color) {
-	&:before {
-		content: '';
-		position: absolute;
-		background-color: $color;
-		display: block;
-		z-index: 1;
+	@if($position==top or $position==left) {
+		&:before {
+			content: '';
+			position: absolute;
+			background-color: $color;
+			display: block;
+			z-index: 1;
 
-		@if($position==top) {
-			left: 0;
-			top: 0;
-			bottom: auto;
-			right: auto;
-			height: 1px;
-			width: 100%;
-			transform-origin: 50% 0%;
+			@if($position==top) {
+				left: 0;
+				top: 0;
+				bottom: auto;
+				right: auto;
+				height: 1px;
+				width: 100%;
+				transform-origin: 50% 0%;
 
-			@media only screen and (-webkit-min-device-pixel-ratio: 2) {
-				transform: scaleY(0.5);
+				@media only screen and (-webkit-min-device-pixel-ratio: 2) {
+					transform: scaleY(0.5);
+				}
+			}
+
+			@if($position==left) {
+				left: 0;
+				top: 0;
+				bottom: auto;
+				right: auto;
+				width: 1px;
+				height: 100%;
+				transform-origin: 0% 50%;
+
+				@media only screen and (-webkit-min-device-pixel-ratio: 2) {
+					transform: scaleX(0.5);
+				}
 			}
 		}
+	}
 
-		@else if($position==left) {
-			left: 0;
-			top: 0;
-			bottom: auto;
-			right: auto;
-			width: 1px;
-			height: 100%;
-			transform-origin: 0% 50%;
+	@if ($position==bottom or $position==right){
+		&:after {
+			content: '';
+			position: absolute;
+			background-color: $color;
+			display: block;
+			z-index: 1;
 
-			@media only screen and (-webkit-min-device-pixel-ratio: 2) {
-				transform: scaleX(0.5);
+			@if($position==bottom) {
+				left: 0;
+				bottom: 0;
+				right: auto;
+				top: auto;
+				height: 1px;
+				width: 100%;
+				transform-origin: 50% 100%;
+
+				@media only screen and (-webkit-min-device-pixel-ratio: 2) {
+					transform: scaleY(0.5);
+				}
 			}
-		}
 
-		@else if($position==bottom) {
-			left: 0;
-			bottom: 0;
-			right: auto;
-			top: auto;
-			height: 1px;
-			width: 100%;
-			transform-origin: 50% 100%;
+			@if($position==right) {
+				right: 0;
+				top: 0;
+				left: auto;
+				bottom: auto;
+				width: 1px;
+				height: 100%;
+				transform-origin: 100% 50%;
 
-			@media only screen and (-webkit-min-device-pixel-ratio: 2) {
-				transform: scaleY(0.5);
-			}
-		}
-
-		@else if($position==right) {
-			right: 0;
-			top: 0;
-			left: auto;
-			bottom: auto;
-			width: 1px;
-			height: 100%;
-			transform-origin: 100% 50%;
-
-			@media only screen and (-webkit-min-device-pixel-ratio: 2) {
-				transform: scaleX(0.5);
+				@media only screen and (-webkit-min-device-pixel-ratio: 2) {
+					transform: scaleX(0.5);
+				}
 			}
 		}
 	}
@@ -222,6 +234,6 @@
 	}
 }
 
-@mixin input-shadow(){
-	box-shadow: 0px 18px 12px -12px rgba(0,0,0, 0.025);
+@mixin input-shadow() {
+	box-shadow: 0px 18px 12px -12px rgba(0, 0, 0, 0.025);
 }

@@ -1,3 +1,6 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
 $buttons-large-height: $buttons-height + 0.5556rem;
 $buttons-small-height: $buttons-height - 0.5556rem;
 
@@ -326,19 +329,17 @@ $buttons-small-height: $buttons-height - 0.5556rem;
 
 .fab-button {
 	text-align: center;
-	-moz-appearance: none;
-	-ms-appearance: none;
-	-webkit-appearance: none;
-	appearance: none;
 	border-radius: 50%;
 	position: relative;
-	z-index: 0;
-	display: block;
+	z-index: 9999;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	overflow: hidden;
 	width: 56px;
 	height: 56px;
-	font-size: 14px;
-	line-height: 56px;
+	font-size: 1.5rem;
+	line-height: 1em;
 	text-overflow: ellipsis;
 	text-transform: none;
 	white-space: nowrap;
@@ -360,7 +361,9 @@ $buttons-small-height: $buttons-height - 0.5556rem;
 	
 	.icon, [class^="icon-"] {
 		flex: 1;
-		font-size: 24px;
-		line-height: 18px;
+		font-size: 1.5rem;
+		line-height: 1em;
+		width: 1em;
+		height: 1em;
 	}
 }

@@ -1,7 +1,7 @@
 <template>
-	<button class="fab-button" @click="$emit('click')">
+	<a href="javascript:;" class="fab-button" @click="$emit('click')">
 		<slot></slot>
-	</button>
+	</a>
 </template>
 
 <script>
