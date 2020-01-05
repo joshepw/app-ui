@@ -59,19 +59,25 @@
 				this.parentTop = document.querySelector('.notices.is-top');
 				this.parentBottom = document.querySelector('.notices.is-bottom');
 				
-				if (this.parentTop && this.parentBottom) return;
+				if (this.parentTop && this.parentBottom) {
+					return;
+				}
+
 				if (!this.parentTop) {
 					this.parentTop = document.createElement('div');
 					this.parentTop.className = 'notices is-top';
 				}
+
 				if (!this.parentBottom) {
 					this.parentBottom = document.createElement('div');
 					this.parentBottom.className = 'notices is-bottom'
 				}
+
 				const container = this.container || document.body;
 				container.appendChild(this.parentTop);
 				container.appendChild(this.parentBottom);
 				let containerParentClass = 'is-custom-parent';
+				
 				if (this.container) {
 					this.parentTop.classList.add(containerParentClass);
 					this.parentBottom.classList.add(containerParentClass)
