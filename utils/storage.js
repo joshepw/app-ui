@@ -4,8 +4,9 @@ const storage = window.localStorage;
 const JSON = window.JSON;
 
 export default class LocalStorageDriver {
-	constructor(secret) {
-		this.secret = secret;
+	constructor(options) {
+		this.authTokenName = options.authTokenName;
+		this.secret = options.secret;
 	}
 
 	get(key) {
@@ -50,5 +51,17 @@ export default class LocalStorageDriver {
 
 	remove(key) {
 		return storage.removeItem(key);
+	}
+
+	getToken() {
+		return this.get(this.authTokenName);
+	}
+
+	setToken(token) {
+		return this.set(this.authTokenName, token);
+	}
+
+	clearToken() {
+		this.remove(this.authTokenName);
 	}
 }
