@@ -1,5 +1,5 @@
 {
-	"name": "@joshepw/app-ui",
+	"name": "vue-cordova-appui",
 	"version": "0.0.3",
 	"description": "Vue AppUI",
 	"main": "index.js",
