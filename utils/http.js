@@ -20,8 +20,6 @@ export default {
 				config.headers['Content-Type'] = 'multipart/form-data';
 			}
 
-			console.log('[access_token]', config, accessToken);
-
 			return config;
 		}, function (error) {
 			return Promise.reject(error);
@@ -30,8 +28,6 @@ export default {
 		httpInstance.interceptors.response.use((response) => {
 			return response;
 		}, function (error) {
-			console.log('[error]', error)
-
 			if(typeof error.response.headers['X-Toast-Message'] != 'undefined') {
 				if(typeof Vue.toast != 'undefined') {
 					Vue.toast.open({
