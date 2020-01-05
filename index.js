@@ -10,6 +10,7 @@ import Overlay from './components/overlay/_plugin';
 import Lists from './components/lists/_plugin';
 import Toolbar from  './components/toolbar/_plugin';
 import Slider from './components/slider/_plugin';
+import Form from './components/form/_plugin';
 
 // DIRECTIVES
 import BackgroundImage from './directives/backgroundImage';
@@ -98,6 +99,7 @@ export default {
 		Vue.use(Lists);
 		Vue.use(Toolbar);
 		Vue.use(Slider);
+		Vue.use(Form);
 
 		Vue.directive('background', BackgroundImage);
 		Vue.directive('swipe', Swipe);

@@ -1,14 +1,14 @@
 <template>
 	<li>
-		<div :class="['item-inner', {'item-link': link}]">
+		<div class="item-inner">
 			<div class="item-media" v-if="!!this.$slots['media']">
 				<slot name="media"></slot>
 			</div>
 			<div class="item-content">
-				<slot></slot>
-			</div>
-			<div class="link-arrow" v-if="link">
-				<i class="icon-link"></i>
+				<div class="item-title label" v-html="label"></div>
+				<div class="item-input">
+					<slot></slot>
+				</div>
 			</div>
 		</div>
 	</li>
@@ -17,9 +17,9 @@
 <script>
 	export default {
 		props: {
-			link: {
-				type: Boolean,
-				default: false
+			label: {
+				type: String,
+				default: ''
 			}
 		}
 	}

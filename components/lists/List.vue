@@ -2,6 +2,7 @@
 	<div class="list">
 		<div class="list-title" ref="title" v-if="showTitle">
 			<slot name="title"></slot>
+			<span v-html="title" v-if="title"></span>
 		</div>
 		<ul>
 			<slot></slot>
@@ -19,6 +20,9 @@
 				showTitle: true,
 				showAppend: true
 			}
+		},
+		props: {
+			title: String
 		},
 		mounted() {
 			this.$nextTick(() => {

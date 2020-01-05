@@ -237,3 +237,17 @@
 @mixin input-shadow() {
 	box-shadow: 0px 18px 12px -12px rgba(0, 0, 0, 0.025);
 }
+
+@mixin range-thumb() {
+	height: 28px;
+	width: 28px;
+	border-radius: 28px;
+	background: #fff;
+	z-index: 10;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+	border: 0;
+	outline: 0;
+	position: absolute;
+	box-sizing: border-box;
+	content: ' ';
+}
