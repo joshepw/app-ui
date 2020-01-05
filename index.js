@@ -9,12 +9,14 @@ import Buttons from './components/buttons/_plugin';
 import Overlay from './components/overlay/_plugin';
 import Lists from './components/lists/_plugin';
 import Toolbar from  './components/toolbar/_plugin';
+import Slider from './components/slider/_plugin';
 
 // DIRECTIVES
 import BackgroundImage from './directives/backgroundImage';
 import Swipe from './directives/swipe';
 import Ripple from './directives/ripple';
 import Mask from './directives/mask';
+import TransitionEnd from './directives/transitionEnd';
 
 // HELPERS
 import SessionDriver from './utils/session';
@@ -31,6 +33,7 @@ export default {
 				endpoint: '',
 				timeout: 5000,
 				authHeader: 'X-Auth-Token',
+				formData: false,
 				headers: {
 					'responseType' : 'json',
 					'Content-Type' : 'application/json'
@@ -53,6 +56,15 @@ export default {
 			if(storageInstance.get(options.authTokenName)) {
 				config.headers[options.http.authHeader] = storageInstance.get(options.authTokenName);
 			}
+
+			if(typeof config.data === 'object' && options.http.formData) {
+				const formData = new FormData();
+				Object.keys(config.data).forEach(key => formData.append(key, config.data[key]));
+				config.data = formData;
+
+				config.headers['Content-Type'] = 'multipart/form-data';
+			}
+
 
 			return config;
 		}, function (error) {
@@ -85,10 +97,12 @@ export default {
 		Vue.use(Overlay);
 		Vue.use(Lists);
 		Vue.use(Toolbar);
+		Vue.use(Slider);
 
 		Vue.directive('background', BackgroundImage);
 		Vue.directive('swipe', Swipe);
 		Vue.directive('ripple', Ripple);
 		Vue.directive('mask', Mask);
+		Vue.directive('transition-end', TransitionEnd);
 	}
 };
