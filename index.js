@@ -43,14 +43,35 @@ export default {
 		const sessionInstance = new SessionDriver();
 		const storageInstance = new StorageDriver(options.secret);
 
-		if(storageInstance.get(options.authTokenName)) {
-			options.http.headers[options.http.authHeader] = storageInstance.get(options.authTokenName);
-		}
-
 		const httpInstance = axios.create({
 			baseURL: options.http.endpoint,
 			timeout: options.http.timeout,
 			headers: options.http.headers
+		});
+
+		httpInstance.interceptors.request.use(function (config) {
+			if(storageInstance.get(options.authTokenName)) {
+				config.headers[options.http.authHeader] = storageInstance.get(options.authTokenName);
+			}
+
+			return config;
+		}, function (error) {
+			return Promise.reject(error);
+		});
+
+		httpInstance.interceptors.response.use(function (response) {
+			return response;
+		}, function (error) {
+			if(typeof error.response.headers['X-Toast-Message'] != 'undefined') {
+				if(typeof Vue.toast != 'undefined') {
+					Vue.toast.open({
+						message: error.response.headers['X-Toast-Message'],
+						type: error.response.headers['X-Toast-Message-Type'] || 'danger'
+					});
+				}
+			}
+
+			return Promise.reject(error);
 		});
 
 		Vue.prototype.$appui = options;
