@@ -1,3 +1,4 @@
+// COMMUN
 import './styles/bootstrap.scss';
 import defaultOptions from './options';
 
@@ -24,6 +25,7 @@ import SessionDriver from './utils/session';
 import StorageDriver from './utils/storage';
 import HttpDriver from './utils/http';
 
+// INSTALL
 export default {
 	install(Vue, options) {
 		options = { ...defaultOptions, ...options };
@@ -36,15 +38,15 @@ export default {
 		Vue.prototype.storage = storageInstance;
 		Vue.prototype.http = HttpDriver.prepare(Vue, options);
 
-		Vue.use(AppContent);
-		Vue.use(Modal);
-		Vue.use(Buttons);
-		Vue.use(Overlay);
-		Vue.use(Lists);
-		Vue.use(Toolbar);
-		Vue.use(Slider);
-		Vue.use(Form);
-		Vue.use(Tabs);
+		Vue.use(AppContent, options);
+		Vue.use(Modal, options);
+		Vue.use(Buttons, options);
+		Vue.use(Overlay, options);
+		Vue.use(Lists, options);
+		Vue.use(Toolbar, options);
+		Vue.use(Slider, options);
+		Vue.use(Form, options);
+		Vue.use(Tabs, options);
 
 		Vue.directive('background', BackgroundImage);
 		Vue.directive('swipe', Swipe);
