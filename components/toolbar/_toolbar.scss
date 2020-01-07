@@ -41,6 +41,10 @@
 		}
 	}
 
+	&.bottom:first-child .toolbar-background{
+		border-width: .55px 0 0;
+	}
+
 	&:last-child .toolbar-background {
 		border-width: 0 0 .55px;
 	}
@@ -78,6 +82,24 @@
 
 		.app.dark & {
 			color: #FFF;
+		}
+	}
+}
+
+.toolbar-item{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 0px 0.3rem;
+
+	[class^="icon-"] {
+		width: 1em;
+		height: 1em;
+		line-height: 1em;
+		font-size: 1.5rem;
+
+		.app.dark & {
+			color: var(--color-primary, #FFF);
 		}
 	}
 }

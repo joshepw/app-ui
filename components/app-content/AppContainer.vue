@@ -1,14 +1,20 @@
 <template>
 	<div id="app" :class="['app', os, uiMode, orientationDevice, {'virtual-home': virtualHomeButton, 'ready' : deviceReady}]">
-		<transition-page v-if="router">
-			<router-view></router-view>
-		</transition-page>
+		<app-view>
+			<slot name="header"></slot>
 
-		<slot></slot>
+			<transition-page v-if="router">
+				<router-view></router-view>
+			</transition-page>
+
+			<slot></slot>
+		</app-view>
 	</div>
 </template>
 
 <script>
+	import { store } from '../../utils/state';
+
 	const StatusBar = StatusBar || window.StatusBar;
 
 	export default {
@@ -25,7 +31,8 @@
 		data() {
 			return {
 				orientationDevice: screen.orientation.angle == 0 ? 'portrait' : 'landscape',
-				deviceReady: false
+				deviceReady: false,
+				storeState: store.state
 			}
 		},
 		methods: {
@@ -38,7 +45,7 @@
 		},
 		computed: {
 			os() {
-				if (this.$appui.osMode != 'auto') {
+				if (this.ui.osMode != 'auto') {
 					return this.appui.osMode;
 				}
 
@@ -51,14 +58,21 @@
 				return "ios";
 			},
 			uiMode() {
-				if (!this.$appui.darkModeSupport) {
+				if (!this.ui.darkModeSupport) {
+					store.setUILight();
 					return 'light';
 				}
 
+				if(this.storeState.uiMode != null) {
+					return this.storeState.uiMode;
+				}
+
 				if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+					store.setUIDark();
 					return 'dark';
 				}
 
+				store.setUILight();
 				return 'light';
 			},
 			virtualHomeButton() {

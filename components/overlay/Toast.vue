@@ -73,7 +73,7 @@
 					this.parentBottom.className = 'notices is-bottom'
 				}
 
-				const container = this.container || document.body;
+				const container = this.container || document.querySelector('#app');
 				container.appendChild(this.parentTop);
 				container.appendChild(this.parentBottom);
 				let containerParentClass = 'is-custom-parent';

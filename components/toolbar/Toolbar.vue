@@ -1,5 +1,5 @@
 <template>
-	<div class="toolbar">
+	<div :class="['toolbar', {'bottom': bottom}]">
 		<div class="toolbar-background"></div>
 		<div class="toolbar-inner">
 			<slot></slot>
@@ -9,6 +9,8 @@
 
 <script>
 	export default {
-
+		props: {
+			bottom: Boolean
+		}
 	}
 </script>

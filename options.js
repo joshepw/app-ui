@@ -3,6 +3,7 @@ export default {
 	authTokenName: 'user_auth_token',
 	darkModeSupport: true,
 	osMode: 'auto',
+	uiMode: null,
 	http: {
 		timeout: 5000
 	}

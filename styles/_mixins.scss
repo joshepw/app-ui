@@ -151,15 +151,15 @@
 		color: #{'var(--color-' + $name + '-shade)'} !important;
 	}
 
-	#{'.background-' + $name} {
+	#{'.background-' + $name}, #{'.fill-' + $name} {
 		background-color: #{'var(--color-' + $name + ')'} !important;
 	}
 
-	#{'.background-' + $name + '-tint'} {
+	#{'.background-' + $name + '-tint'}, #{'.fill-' + $name + '-tint'} {
 		background-color: #{'var(--color-' + $name + '-tint)'} !important;
 	}
 
-	#{'.background-' + $name + '-shade'} {
+	#{'.background-' + $name + '-shade'}, #{'.fill-' + $name + '-shade'} {
 		background-color: #{'var(--color-' + $name + '-shade)'} !important;
 	}
 }

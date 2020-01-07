@@ -3,7 +3,11 @@
 		<overlay :show="mutableShow" :click="overlayClick"></overlay>
 		<transition name="modal">
 			<div class="modal" v-if="mutableShow">
-				<div class="modal-inner">
+				<div class="modal-component" v-if="component">
+					<component :is="component" v-bind="componentProps"></component>
+				</div>
+				<div class="modal-content" v-else-if="content" v-html="content"></div>
+				<div class="modal-inner" v-else>
 					<div class="modal-title">
 						<slot name="title" v-html="confirmText"></slot>
 					</div>
@@ -25,6 +29,12 @@
 				type: Boolean,
 				default: false,
 			},
+			content: String,
+			component: String,
+			componentProps: {
+				type: Object,
+				default: () => {}
+			},
 			overlayClose: {
 				type: Boolean,
 				default: false,
@@ -41,6 +51,10 @@
 		},
 		methods: {
 			open() {
+				if(typeof this.openModal == 'function'){
+					this.openModal.apply(null);
+				}
+
 				this.mutableShow = true;
 				this.$emit('open', this);
 			},

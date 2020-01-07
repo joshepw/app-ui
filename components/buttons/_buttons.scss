@@ -33,6 +33,10 @@ $buttons-small-height: $buttons-height - 0.5556rem;
 		width: 100%;
 	}
 
+	&.button-block {
+		width: 100%;
+	}
+
 	&:active {
 		background-color: var(color-primary-shade);
 	}
@@ -351,7 +355,7 @@ $buttons-small-height: $buttons-height - 0.5556rem;
 	contain: strict;
 	outline: none;
 
-	color: var(--color-text, #fff);
+	color: var(--color-dark-text, #fff);
 	background-color: var(--background-color, #488aff);
 	transition: box-shadow .3s cubic-bezier(.4,0,.2,1),background-color .3s cubic-bezier(.4,0,.2,1),color .3s cubic-bezier(.4,0,.2,1);
 
@@ -365,5 +369,6 @@ $buttons-small-height: $buttons-height - 0.5556rem;
 		line-height: 1em;
 		width: 1em;
 		height: 1em;
+		margin: 0px;
 	}
 }

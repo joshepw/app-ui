@@ -18,7 +18,7 @@
 			},
 			title: {
 				type: String,
-				default: 'Alert',
+				default: '',
 			},
 			content: {
 				type: String,
@@ -34,13 +34,19 @@
 			},
 			onOk: {
 				type: Function,
+				default: () => {}
 			},
 			onCancel: {
 				type: Function,
+				default: () => {}
 			},
 		},
 		methods: {
 			open() {
+				if(typeof this.openModal == 'function'){
+					this.openModal.apply(null);
+				}
+
 				this.$refs.modal.open();
 				this.$emit('open', this);
 			},
@@ -49,16 +55,16 @@
 				this.$emit('close', this);
 			},
 			_onOk() {
-				if (this.onOk) {
-					this.onOk();
+				if(typeof this.onOk == 'function'){
+					this.onOk.apply(null);
 				}
 
 				this.$emit('ok', this);
 				this.close();
 			},
 			_onCancel() {
-				if (this.onCancel) {
-					this.onCancel();
+				if(typeof this.onCancel == 'function'){
+					this.onCancel.apply(null);
 				}
 
 				this.$emit('cancel', this);

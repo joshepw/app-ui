@@ -17,7 +17,7 @@
 			},
 			title: {
 				type: String,
-				default: 'Alert',
+				default: '',
 			},
 			content: {
 				type: String,
@@ -29,10 +29,15 @@
 			},
 			onOk: {
 				type: Function,
+				default: () => {}
 			},
 		},
 		methods: {
 			open() {
+				if(typeof this.openModal == 'function'){
+					this.openModal.apply(null);
+				}
+
 				this.$refs.modal.open();
 				this.$emit('open', this);
 			},
