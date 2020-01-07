@@ -1,5 +1,6 @@
 // COMMUN
 import './styles/bootstrap.scss';
+import { store } from './utils/state';
 import defaultOptions from './options';
 
 // COMPONENTS
@@ -9,7 +10,6 @@ import Buttons from './components/buttons/_plugin';
 import Overlay from './components/overlay/_plugin';
 import Lists from './components/lists/_plugin';
 import Toolbar from  './components/toolbar/_plugin';
-import Slider from './components/slider/_plugin';
 import Form from './components/form/_plugin';
 import Tabs from './components/tabs/_plugin';
 
@@ -24,6 +24,7 @@ import TransitionEnd from './directives/transitionEnd';
 import SessionDriver from './utils/session';
 import StorageDriver from './utils/storage';
 import HttpDriver from './utils/http';
+import Fragment from './utils/fragment';
 
 // INSTALL
 export default {
@@ -33,10 +34,17 @@ export default {
 		const sessionInstance = new SessionDriver();
 		const storageInstance = new StorageDriver(options);
 
-		Vue.prototype.$appui = options;
+		options.setUIDark = () => store.setUIDark();
+		options.setUILight = () => store.setUILight();
+		options.setUIAuto = () => store.setUIAuto();
+		options.getUIMode = () => store.state.uiMode;
+
+		Vue.prototype.ui = options;
 		Vue.prototype.session = sessionInstance;
 		Vue.prototype.storage = storageInstance;
 		Vue.prototype.http = HttpDriver.prepare(Vue, options);
+
+		Vue.use(Fragment);
 
 		Vue.use(AppContent, options);
 		Vue.use(Modal, options);
@@ -44,7 +52,6 @@ export default {
 		Vue.use(Overlay, options);
 		Vue.use(Lists, options);
 		Vue.use(Toolbar, options);
-		Vue.use(Slider, options);
 		Vue.use(Form, options);
 		Vue.use(Tabs, options);
 
