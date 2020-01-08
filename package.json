@@ -1,6 +1,6 @@
 {
 	"name": "vue-cordova-appui",
-	"version": "0.0.4",
+	"version": "0.0.5",
 	"description": "Vue AppUI",
 	"main": "index.js",
 	"scripts": {
@@ -71,12 +71,12 @@
 		"rollup-plugin-uglify": "^2.0.1",
 		"rollup-plugin-vue": "^2.4.2",
 		"sinon": "^8.0.2",
-		"text-mask-core": "^5.1.2",
 		"uglify-es": "^3.0.28",
 		"vue": "^2.4.4"
 	},
 	"dependencies": {
 		"axios": "^0.19.0",
-		"crypto-js": "^3.1.9-1"
+		"crypto-js": "^3.1.9-1",
+		"text-mask-core": "^5.1.2"
 	}
 }
