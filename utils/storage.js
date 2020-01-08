@@ -3,7 +3,7 @@ import CryptoJS from 'crypto-js';
 const storage = window.localStorage;
 const JSON = window.JSON;
 
-export default class LocalStorageDriver {
+class LocalStorageService {
 	constructor(options) {
 		this.authTokenName = options.authTokenName;
 		this.secret = options.secret;
@@ -65,3 +65,9 @@ export default class LocalStorageDriver {
 		this.remove(this.authTokenName);
 	}
 }
+
+export default {
+	install(Vue, options) {
+		Vue.prototype.storage = Vue.storage = new LocalStorageService(options);
+	}
+};

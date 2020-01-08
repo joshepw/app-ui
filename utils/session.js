@@ -1,7 +1,7 @@
 const session = window.sessionStorage;
 const JSON = window.JSON;
 
-export default class SessionStorageDriver {
+class SessionStorageService {
 	get(name) {
 		let value = session.getItem(name);
 
@@ -22,5 +22,11 @@ export default class SessionStorageDriver {
 
 	remove(name) {
 		return session.removeItem(name)
+	}
+}
+
+export default {
+	install(Vue) {
+		Vue.prototype.session = Vue.session = new SessionStorageService();
 	}
 }

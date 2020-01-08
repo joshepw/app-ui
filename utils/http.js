@@ -2,7 +2,7 @@ import axios from 'axios';
 const storage = window.localStorage;
 
 export default {
-	prepare(Vue, options) {
+	instal(Vue, options) {
 		const httpInstance = axios.create(options.http);
 
 		httpInstance.interceptors.request.use((config) => {
@@ -40,6 +40,6 @@ export default {
 			return Promise.reject(error);
 		});
 
-		return httpInstance;
+		Vue.prototype.http = Vue.http = httpInstance;
 	}
 };

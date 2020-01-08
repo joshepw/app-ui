@@ -9,6 +9,6 @@ export default {
 		options.setUIAuto = () => store.setUIAuto();
 		options.getUIMode = () => store.state.uiMode;
 
-		Vue.prototype.ui = options;
+		Vue.prototype.ui = Vue.ui = options;
 	}
 };
