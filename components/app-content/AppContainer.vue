@@ -1,6 +1,7 @@
 <template>
 	<div id="app" :class="['app', os, uiMode, orientationDevice, {'virtual-home': virtualHomeButton, 'ready' : deviceReady}]">
 		<app-view>
+			<div class="app-statusbar"></div>
 			<slot name="header"></slot>
 
 			<transition-page v-if="router">
@@ -22,6 +23,8 @@
 			router: Boolean,
 		},
 		mounted() {
+			this.onOrientationChange();
+
 			window.addEventListener("orientationchange", this.onOrientationChange);
 			document.addEventListener("deviceready", this.onDeviceReady, false);
 		},
@@ -30,14 +33,15 @@
 		},
 		data() {
 			return {
-				orientationDevice: screen.orientation.angle == 0 ? 'portrait' : 'landscape',
+				orientationDevice: 'portrait',
 				deviceReady: false,
 				storeState: store.state
 			}
 		},
 		methods: {
 			onOrientationChange() {
-				this.orientationDevice = screen.orientation.angle == 0 ? 'portrait' : 'landscape';
+				if(typeof screen.orientation != 'undefined')
+					this.orientationDevice = screen.orientation.angle == 0 ? 'portrait' : 'landscape';
 			},
 			onDeviceReady() {
 				this.deviceReady = true;
@@ -46,7 +50,7 @@
 		computed: {
 			os() {
 				if (this.ui.osMode != 'auto') {
-					return this.appui.osMode;
+					return this.ui.osMode;
 				}
 
 				const userAgent = navigator.userAgent || navigator.vendor;
@@ -63,7 +67,7 @@
 					return 'light';
 				}
 
-				if(this.storeState.uiMode != null) {
+				if(typeof this.storeState.uiMode != 'undefined' && this.storeState.uiMode != null) {
 					return this.storeState.uiMode;
 				}
 

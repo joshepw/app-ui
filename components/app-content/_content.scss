@@ -173,3 +173,9 @@ button {
 	flex-direction: column;
 	justify-content: space-between;
 }
+
+.app-statusbar{
+	width: 100%;
+	display: block;
+	height: var(--statusbar-height, 0px);
+}

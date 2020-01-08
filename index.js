@@ -1,6 +1,5 @@
 // COMMUN
 import './styles/bootstrap.scss';
-import { store } from './utils/state';
 import defaultOptions from './options';
 
 // COMPONENTS
@@ -12,6 +11,7 @@ import Lists from './components/lists/_plugin';
 import Toolbar from  './components/toolbar/_plugin';
 import Form from './components/form/_plugin';
 import Tabs from './components/tabs/_plugin';
+import Media from './components/media/_plugin';
 
 // DIRECTIVES
 import BackgroundImage from './directives/backgroundImage';
@@ -25,6 +25,7 @@ import SessionDriver from './utils/session';
 import StorageDriver from './utils/storage';
 import HttpDriver from './utils/http';
 import Fragment from './utils/fragment';
+import UI from './utils/ui';
 
 // INSTALL
 export default {
@@ -34,12 +35,6 @@ export default {
 		const sessionInstance = new SessionDriver();
 		const storageInstance = new StorageDriver(options);
 
-		options.setUIDark = () => store.setUIDark();
-		options.setUILight = () => store.setUILight();
-		options.setUIAuto = () => store.setUIAuto();
-		options.getUIMode = () => store.state.uiMode;
-
-		Vue.prototype.ui = options;
 		Vue.prototype.session = sessionInstance;
 		Vue.prototype.storage = storageInstance;
 		Vue.prototype.http = HttpDriver.prepare(Vue, options);
@@ -54,6 +49,9 @@ export default {
 		Vue.use(Toolbar, options);
 		Vue.use(Form, options);
 		Vue.use(Tabs, options);
+		Vue.use(Media, options);
+
+		Vue.use(UI, options);
 
 		Vue.directive('background', BackgroundImage);
 		Vue.directive('swipe', Swipe);

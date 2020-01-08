@@ -6,5 +6,10 @@ export default {
 	uiMode: null,
 	http: {
 		timeout: 5000
+	},
+	statusbar: {
+		light: '#FFFFFF',
+		dark: '#000000',
+		translucent: false
 	}
 };

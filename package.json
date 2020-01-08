@@ -1,6 +1,6 @@
 {
 	"name": "vue-cordova-appui",
-	"version": "0.0.3",
+	"version": "0.0.4",
 	"description": "Vue AppUI",
 	"main": "index.js",
 	"scripts": {
